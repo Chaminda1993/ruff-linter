@@ -1,27 +1,42 @@
-def calculate_rectangle_area(length, width):
-    """Calculates the area of a rectangle."""
-    rectangle_area = length * width
-    return rectangle_area
+"""Calculates the area of a rectangle and validates user input."""
 
-def get_valid_age():
-    """Prompts the user for their age and validates input."""
+def calculate_rectangle_area(length, width):
+    """Calculates the area of a rectangle.
+
+    Args:
+        length (float): The length of the rectangle.
+        width (float): The width of the rectangle.
+
+    Returns:
+        float: The area of the rectangle.
+
+    Raises:
+        ValueError: If either length or width is negative.
+    """
+
+    if length < 0 or width < 0:
+        raise ValueError("Length and width must be non-negative values.")
+
+    return length * width
+
+def get_rectangle_dimensions():
+    """Prompts the user for rectangle dimensions and validates input.
+
+    Returns:
+        tuple: A tuple containing the validated length and width.
+    """
+
     while True:
         try:
-            age = int(input("Enter your age: "))
-            if 0 <= age <= 120:  # Ensure age is within reasonable range
-                return age
-            else:
-                print("Invalid age. Please enter a number between 0 and 120.")
+            length = float(input("Enter the length of the rectangle: "))
+            width = float(input("Enter the width of the rectangle: "))
+            return length, width
         except ValueError:
-            print("Invalid input. Please enter a number.")
+            print("Invalid input. Please enter numerical values for length and width.")
 
-def process_data(data_list):
-    """Processes a list of data items."""
-    for item in data_list:
-        if isinstance(item, int) and item > 10:
-            print(item)
-        elif isinstance(item, str) and item.startswith("a"):
-            print(item)
+if __name__ == "__main__":
+    """Main execution block."""
 
-# Replace manage_employee_records() with smaller, focused functions
-# for adding, removing, and updating employee records.
+    length, width = get_rectangle_dimensions()
+    area = calculate_rectangle_area(length, width)
+    print("The area of the rectangle is:", area)
