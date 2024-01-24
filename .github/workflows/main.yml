@@ -6,6 +6,8 @@ jobs:
     steps:
       - name: Checkout code...
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.ACCESS_TOKEN }}
         
       - name: Check files using the black formatter
         id: action_black
@@ -26,12 +28,18 @@ jobs:
       - name: Check for modified files
         id: git-check
         run: echo "modified=$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)" >> $GITHUB_OUTPUT
-      - name: Push changes
-        if: steps.git-check.outputs.modified == 'true'
+      # - name: Push changes
+        # if: steps.git-check.outputs.modified == 'true'
+        # run: |
+          # BRANCH=$(git branch --show-current)
+          # git config --global user.name 'Chaminda1993'
+          # git config --global user.email 'c771904768@gmail.com'
+          # git remote set-url origin https://x-access-token:${{ secrets.ACCESS_TOKEN }}@github.com/${{ github.repository }}
+          # git commit -am "Automated changes"
+          # git push origin HEAD:$BRANCH
+      - name: Commit report
         run: |
-          BRANCH=$(git branch --show-current)
-          git config --global user.name 'Chaminda1993'
-          git config --global user.email 'c771904768@gmail.com'
-          git remote set-url origin https://x-access-token:${{ secrets.ACCESS_TOKEN }}@github.com/${{ github.repository }}
-          git commit -am "Automated changes"
-          git push origin HEAD:test1
+          git config --global user.name 'Your Name'
+          git config --global user.email 'your-username@users.noreply.github.com'
+          git commit -am "Automated report"
+          git push
