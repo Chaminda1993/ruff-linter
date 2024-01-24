@@ -11,7 +11,8 @@ jobs:
         id: action_black
         uses: psf/black@stable
         with:
-          options: "--check --code --verbose"
+          options: "--pyi --ipynb --safe --verbose"
+          src: "./python"
           jupyter: true
       - name: Annotate diff changes using reviewdog
         if: steps.action_black.outputs.is_formatted == 'true'
