@@ -25,5 +25,3 @@ def process_data(data_list):
 
 # Replace manage_employee_records() with smaller, focused functions
 # for adding, removing, and updating employee records.
-
-# ... other code ...
