@@ -30,9 +30,9 @@ jobs:
         if: steps.git-check.outputs.modified == 'true'
         run: |
           BRANCH=$(git branch --show-current)
+          echo $BRANCH
           git config --global user.name 'Chaminda1993'
           git config --global user.email 'c771904768@gmail.com'
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}/$BRANCH
           git commit -am "Automated changes"
-          git push origin HEAD:test1
-          echo $BRANCH
+          git push
