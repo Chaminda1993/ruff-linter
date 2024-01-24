@@ -1,49 +1,29 @@
-def calculate_area(length, width):  # Missing docstring
-  area = length * width  # Unclear variable name
-  return area  # Implicit return statement
+def calculate_rectangle_area(length, width):
+    """Calculates the area of a rectangle."""
+    rectangle_area = length * width
+    return rectangle_area
 
-def get_user_info():
-    while True:  # Infinite loop without clear exit condition
+def get_valid_age():
+    """Prompts the user for their age and validates input."""
+    while True:
         try:
             age = int(input("Enter your age: "))
+            if 0 <= age <= 120:  # Ensure age is within reasonable range
+                return age
+            else:
+                print("Invalid age. Please enter a number between 0 and 120.")
         except ValueError:
-            print("Invalid age. Please enter a number.")
-            continue
-        else:
-            break
-
-    # Nested conditionals
-    if age >= 18:
-        if age >= 65:
-            print("You are eligible for senior citizen discounts.")
-        else:
-            print("You are an adult.")
-    else:
-        print("You are a minor.")
+            print("Invalid input. Please enter a number.")
 
 def process_data(data_list):
+    """Processes a list of data items."""
     for item in data_list:
-        if item == "":  # Empty string check
-            continue  # Empty block
-        else:
-            # Complex conditional with multiple expressions
-            if isinstance(item, int) and item > 10 or isinstance(item, str) and item.startswith("a"):
-                print(item)
+        if isinstance(item, int) and item > 10:
+            print(item)
+        elif isinstance(item, str) and item.startswith("a"):
+            print(item)
 
-# Long function with multiple responsibilities
-def manage_employee_records():
-    # ... code for adding, removing, and updating employee records ...
+# Replace manage_employee_records() with smaller, focused functions
+# for adding, removing, and updating employee records.
 
-# Global variable
-global_counter = 0
-
-# Unused import
-import math
-
-# Dead code
-def unused_function():
-    print("This function is never called.")
-
-# Long parameter list
-def send_notification(user_id, email, phone_number, message, priority=False, include_attachments=True):
-    # ... code to send notification ...
+# ... other code ...
