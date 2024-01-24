@@ -34,4 +34,4 @@ jobs:
           git config --global user.email 'c771904768@gmail.com'
           git remote set-url origin https://x-access-token:${{ secrets.ACCESS_TOKEN }}@github.com/${{ github.repository }}
           git commit -am "Automated changes"
-          git push origin HEAD:$BRANCH
+          git push
