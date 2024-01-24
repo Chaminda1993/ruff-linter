@@ -8,7 +8,7 @@ jobs:
       - uses: psf/black@stable
         with:
           options: "--check --verbose"
-          src: "./python"
+          src: "python"
           jupyter: true
           version: "~= 22.0"
       - uses: chartboost/ruff-action@v1
