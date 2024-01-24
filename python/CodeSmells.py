@@ -1,4 +1,4 @@
-ef calculate_rectangle_area(length, width):
+def calculate_rectangle_area(length, width):
     """Calculates the area of a rectangle."""
     rectangle_area = length * width
     return rectangle_area
