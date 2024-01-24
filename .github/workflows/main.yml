@@ -19,6 +19,10 @@ jobs:
         uses: reviewdog/action-suggester@v1
         with:
           tool_name: blackfmt
+
+      - name: Check for modified files
+        id: git-check
+        run: echo steps.action_black.outputs.is_formatted
           
       - name: Check files using the Ruff linter
         uses: chartboost/ruff-action@v1
