@@ -11,7 +11,7 @@ jobs:
         id: action_black
         uses: psf/black@stable
         with:
-          options: "--check --diff --verbose"
+          options: "--check --fix --verbose"
           src: "./python"
           jupyter: true
       - name: Annotate diff changes using reviewdog
