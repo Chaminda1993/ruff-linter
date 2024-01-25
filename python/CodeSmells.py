@@ -33,7 +33,7 @@ def manage_employee_records():
 global_counter = 0
 
 # Unused import
-import math
+import math   
 
 # Dead code
 def unused_function():
