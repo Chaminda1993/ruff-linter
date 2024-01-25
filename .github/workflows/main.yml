@@ -31,13 +31,14 @@ jobs:
       - name: Commit report
         if: steps.git-check.outputs.modified == 'true'
         run: |
-          git config --global user.name 'Your Name'
-          git config --global user.email 'your-username@users.noreply.github.com'
-          git commit -am "Automated report"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git tag -d $GITHUB_REF_NAME
+          git tag $GITHUB_REF_NAME
+          git commit -a -m "Add changes"
       - name: Push changes
         if: steps.git-check.outputs.modified == 'true'
         uses: ad-m/github-push-action@master
         with:
-          force_with_lease: true
-          github_token: ${{ secrets.ACCESS_TOKEN }}
-          branch: ${{ github.head_ref }}
+          force: true
+          tags: true
