@@ -1,4 +1,4 @@
-# print("Hello, world!!!")
+print                (                 "Hello, world!!!"  )
 
 def calculate_area(length, width):
     # Calculates the area of a rectangle
