@@ -1,6 +1,6 @@
 print("Hello, world!!!")
 
-def calculate_area(length, width):
+def calculate_area:
     # Calculates the area of a rectangle
     area = length * width
     return area
