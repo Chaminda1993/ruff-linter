@@ -32,7 +32,7 @@ jobs:
         with:
           args: "--fix --no-unsafe-fixes --no-cache"
 
-      # Setup Python environtment
+      # Setup Python environtment & Run PyTest
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -41,11 +41,6 @@ jobs:
           pip install .
           pip install pytest pytest-cov pytest-html
           pip install datasets==2.15.0
-
-      # Run PyTest 
-      - name: Bash
-        shell: bash -el {0}
-        run: |
           conda list
           pytest -s -v test --junit-xml=test-results.xml
 
