@@ -1,0 +1,74 @@
+name: Lint & PyTest on action
+on: 
+  pull_request:
+    types:
+      - opened
+      - reopened
+  push:  
+    branches:
+      - main
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout codebase
+      - name: Checkout code...
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.ACCESS_TOKEN }}
+
+      # Black formatter execution
+      - name: Check files using the black formatter
+        id: action_black
+        uses: psf/black@stable
+        with:
+          options: "--pyi --safe --verbose"
+          src: "./src"
+          jupyter: true
+          
+      # Ruff linter execution
+      - name: Check files using the Ruff linter
+        uses: chartboost/ruff-action@v1
+        with:
+          args: "--fix --no-unsafe-fixes --no-cache"
+
+      # Setup Python environtment
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - run: |
+          pip install .
+          pip install pytest pytest-cov pytest-html
+          pip install datasets==2.15.0
+
+      # Run PyTest 
+      - name: Bash
+        shell: bash -el {0}
+        run: |
+          conda list
+          pytest -s -v test --junit-xml=test-results.xml
+
+      # Comment test result on commmit
+      - name: Surface failing tests
+        uses: pmeier/pytest-results-action@main
+        with:
+          path: test-results.xml
+
+      # Commit & push changes
+      - name: Check for modified files
+        id: git-check
+        run: echo "modified=$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)" >> $GITHUB_OUTPUT
+      - name: Commit changes
+        if: steps.git-check.outputs.modified == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -a -m "Add changes"
+      - name: Push changes
+        if: steps.git-check.outputs.modified == 'true'
+        uses: ad-m/github-push-action@master
+        with:
+          branch: ${{ github.head_ref }}
+          github_token: ${{ secrets.ACCESS_TOKEN }}
+          force: true
