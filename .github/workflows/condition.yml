@@ -1,14 +1,14 @@
 name: Condition
 on: [ push ]
+env:
+  PROTECTED_BRANCHES: |
+    [
+      "dev",
+      "main"
+    ]
 jobs:
   ruff:
     runs-on: ubuntu-latest
-    env:
-        PROTECTED_BRANCHES: |
-          [
-            "dev",
-            "main"
-          ]
     steps:
       - name: Get branch names
         uses: tj-actions/branch-names@v8
