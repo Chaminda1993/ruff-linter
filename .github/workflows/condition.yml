@@ -13,7 +13,6 @@ jobs:
       - name: Get branch names
         uses: tj-actions/branch-names@v8
         id: branch-names
-      - name: Push changes
-        if: true && (contains(env.PROTECTED_BRANCHES, steps.branch-names.outputs.current_branch) != true)
+      - name: Run doctest
         run: |
-          echo "executed"
+          pytest --doctest-modules .
