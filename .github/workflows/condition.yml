@@ -3,11 +3,17 @@ on: [ push ]
 jobs:
   ruff:
     runs-on: ubuntu-latest
+    env:
+        PROTECTED_BRANCHES: |
+          [
+            "dev",
+            "main"
+          ]
     steps:
       - name: Get branch names
         uses: tj-actions/branch-names@v8
         id: branch-names
       - name: Push changes
-        if: (contains(fromJSON('["main", "dev"]'), steps.branch-names.outputs.current_branch) != true)
+        if: true && (contains(env.PROTECTED_BRANCHES, steps.branch-names.outputs.current_branch) != true)
         run: |
           echo "executed"
