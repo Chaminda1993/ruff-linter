@@ -8,6 +8,6 @@ jobs:
         uses: tj-actions/branch-names@v8
         id: branch-names
       - name: Push changes
-        if: (contains(fromJSON('["main", "dev"]'), steps.branch-names.outputs.current_branch) != true)
+        if: true && (contains(fromJSON('["main", "dev"]'), steps.branch-names.outputs.current_branch) != true)
         run: |
           echo "executed"
