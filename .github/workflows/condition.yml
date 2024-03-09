@@ -14,6 +14,6 @@ jobs:
         uses: tj-actions/branch-names@v8
         id: branch-names
       - name: Push changes
-        if: true && (contains(env.PROTECTED_BRANCHES, steps.branch-names.outputs.current_branch) != true)
+        if: true && ${{ !contains(env.PROTECTED_BRANCHES, steps.branch-names.outputs.current_branch) }}
         run: |
           echo "executed"
